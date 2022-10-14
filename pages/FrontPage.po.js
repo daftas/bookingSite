@@ -50,10 +50,8 @@ module.exports = class{
         await this.subject.fill(messages.cancelReservation);
         await this.description.fill(messages.cancelDescription);
         await this.submitButton.click();
-        //await expect(this.successMessage).toBeVisible();
         const success = await this.successMessage.textContent();
         await expect(success).toContain(messages.successAfterContact);
-
 
     }
 

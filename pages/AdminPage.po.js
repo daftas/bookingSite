@@ -37,5 +37,4 @@ module.exports = class{
         await this.roomPrice.fill(price)
         await this.createRoomButton.click();
     }
-
 }
