@@ -17,7 +17,9 @@ describe('Create and book room' , async() => {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response.headers);  // Cant take token from response. After token is taken, write with fs to envVariables
+        console.log(response.headers);
+        //envVariables.cookie = response.data.roomid
+        //fs.writeFileSync('./constants/envVariables.json', JSON.stringify(envVariables));  // Cant take token from response. After token is taken, write with fs to envVariables
         expect(response.status).toBe(200);
     });
 
