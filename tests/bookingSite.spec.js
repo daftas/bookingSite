@@ -26,7 +26,7 @@ test('Book created room', async({page}) => {
 
 });
 
-test.skip('Send email for hotel', async() => {
+test('Send email for hotel', async() => {
 
     await frontPage.openUrl(url.frontUrl);
     await frontPage.contactHotel();
