@@ -1,4 +1,8 @@
 {
     "frontUrl": "https://automationintesting.online/",
-    "adminUrl": "https://automationintesting.online/#/admin"
+    "adminUrl": "https://automationintesting.online/#/admin",
+    "login": "https://automationintesting.online/auth/login",
+    "createRoom": "https://automationintesting.online/room/",
+    "image": "https://www.mwtestconsultancy.co.uk/img/room1.jpg",
+    "bookRoom": "https://automationintesting.online/booking/"
 }

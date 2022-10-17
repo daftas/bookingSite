@@ -7,14 +7,17 @@
     "test": "tests"
   },
   "dependencies": {
+    "axios": "^1.1.3",
     "playwright-core": "^1.27.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.27.1"
+    "@playwright/test": "^1.27.1",
+    "mocha": "^10.1.0"
   },
   "scripts": {
     "booking": "npx playwright test tests/bookingSite.spec.js",
-    "bookingH": "npx playwright test tests/bookingSite.spec.js --headed"
+    "bookingH": "npx playwright test tests/bookingSite.spec.js --headed",
+    "bookingAPI": "npx mocha tests/bookingSiteAPI.spec.js"
   },
   "keywords": [],
   "author": "",

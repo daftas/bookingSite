@@ -12,21 +12,21 @@ test.beforeEach(async({page}) => {
 
 })
 
-test.skip('Create room', async() => {
+test('Create room', async() => {
     
     await adminPage.openUrl(url.adminUrl);
     await adminPage.logIn(credentials.username, credentials.password);
     await adminPage.createRoom('002',roomTypes.Family,'34');
 });
 
-test.skip('Book created room', async({page}) => {
+test('Book created room', async({page}) => {
     await frontPage.openUrl(url.frontUrl);
     await frontPage.bookCreatedRoom();
     await page.pause();
 
 });
 
-test('Send email for hotel', async() => {
+test.skip('Send email for hotel', async() => {
 
     await frontPage.openUrl(url.frontUrl);
     await frontPage.contactHotel();

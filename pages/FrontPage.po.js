@@ -12,8 +12,8 @@ module.exports = class{
         this.email = page.locator('[name="email"]')
         this.phone = page.locator('[name="phone"]');
         this.bookButton = page.locator('.book-room').last();
-        this.dateFrom = page.locator("(//div[@role='cell'])[22]");
-        this.dateTo = page.locator("(//div[@role='cell'])[28]");
+        this.dateFrom = page.locator("(//div[@role='cell'])[23]");// Must be dinamic
+        this.dateTo = page.locator("(//div[@role='cell'])[28]");// Must be dynamic
 
         this.name = page.locator('#name');
         this.emailToContact = page.locator('#email');
