@@ -16,7 +16,9 @@
   },
   "scripts": {
     "booking": "npx playwright test tests/bookingSite.spec.js",
+    "booking02": "npx playwright test tests/bookingSite02.spec.js",
     "bookingH": "npx playwright test tests/bookingSite.spec.js --headed",
+    "booking02H": "npx playwright test tests/bookingSite02.spec.js --headed",
     "bookingAPI": "npx mocha tests/bookingSiteAPI.spec.js"
   },
   "keywords": [],

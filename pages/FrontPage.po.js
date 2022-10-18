@@ -1,58 +1,51 @@
 const { expect } = require('@playwright/test');
 const {persons, messages} = require('../constants/index');
-module.exports = class{
 
-    constructor(page){
-        this.page = page;
+    module.exports = {
 
-        this.letMeHack = page.locator('.btn-primary').first();
-        this.bookThisRoom = page.locator('.openBooking').last();
-        this.firstName = page.locator('[name="firstname"]');
-        this.lastName = page.locator('[name="lastname"]');
-        this.email = page.locator('[name="email"]')
-        this.phone = page.locator('[name="phone"]');
-        this.bookButton = page.locator('.book-room').last();
-        this.dateFrom = page.locator("(//div[@role='cell'])[23]");// Must be dinamic
-        this.dateTo = page.locator("(//div[@role='cell'])[28]");// Must be dynamic
+        buttonLetMeHack : '//button[text()="Let me hack!"]',
+        buttonBookThisRoom : '(//button[@type="button"][normalize-space()="Book this room"])[2]', 
+        inputFirstName : '[name="firstname"]',
+        inputLastName : '[name="lastname"]',
+        inputEmail : '[name="email"]',
+        inputPhone : '[name="phone"]',
+        buttonBook : '//button[normalize-space()="Book"]',
+        selectorDateFrom : '//div[@class="rbc-day-bg rbc-today"]', 
+        selectorDateTo : '(//div[@class="rbc-date-cell"])[21]', // improve to be dynamic
+        inputName : '#name',
+        inputEmailToContact : '#email',
+        inputPhoneToContact : '#phone',
+        inputSubject : '#subject',
+        inputDescription : '#description',
+        buttonSubmit : '#submitContact',
+        messageSuccess : '.col-sm-5 h2',
 
-        this.name = page.locator('#name');
-        this.emailToContact = page.locator('#email');
-        this.phoneToContact = page.locator('#phone');
-        this.subject = page.locator('#subject');
-        this.description = page.locator('#description');
-        this.submitButton = page.locator('#submitContact');
-        this.successMessage = page.locator('.col-sm-5 h2');
+        async openUrl(url){
 
+            await page.goto(url);
+            await page.locator(this.buttonLetMeHack).click();
+        },
+    
+        async bookCreatedRoom() {
+    
+            await page.locator(this.buttonBookThisRoom).click();
+            await page.locator(this.selectorDateFrom).dragTo(page.locator(this.selectorDateTo));
+            await page.locator(this.inputFirstName).fill(persons.firstName);
+            await page.locator(this.inputLastName).fill(persons.lastName);
+            await page.locator(this.inputEmail).fill(persons.email);
+            await page.locator(this.inputPhone).fill(persons.phone);
+            await page.locator(this.buttonBook).click();
+        },
+    
+        async contactHotel() {
+    
+            await page.locator(this.inputName).fill(persons.firstName);
+            await page.locator(this.inputEmailToContact).fill(persons.email);
+            await page.locator(this.inputPhoneToContact).fill(persons.phone);
+            await page.locator(this.inputSubject).fill(messages.cancelReservation);
+            await page.locator(this.inputDescription).fill(messages.cancelDescription);
+            await page.locator(this.buttonSubmit).click();
+            const success = await page.locator(this.messageSuccess).textContent();
+            await expect(success).toContain(messages.successAfterContact);
+        }
     }
-
-    async openUrl(url){
-
-        await this.page.goto(url);
-        await this.letMeHack.click();
-    }
-
-    async bookCreatedRoom(){
-
-        await this.bookThisRoom.click();
-        await this.dateFrom.dragTo(this.dateTo);
-        await this.firstName.fill(persons.firstName);
-        await this.lastName.fill(persons.lastName);
-        await this.email.fill(persons.email);
-        await this.phone.fill(persons.phone);
-        await this.bookButton.click();
-    }
-
-    async contactHotel(){
-
-        await this.name.fill(persons.firstName);
-        await this.emailToContact.fill(persons.email);
-        await this.phoneToContact.fill(persons.phone);
-        await this.subject.fill(messages.cancelReservation);
-        await this.description.fill(messages.cancelDescription);
-        await this.submitButton.click();
-        const success = await this.successMessage.textContent();
-        await expect(success).toContain(messages.successAfterContact);
-
-    }
-
-}

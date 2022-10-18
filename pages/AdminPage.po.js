@@ -1,40 +1,39 @@
+const {expect} = require('@playwright/test') ;
 
-const {expect} = require('@playwright/test')
-module.exports = class{
+    module.exports = {
+        buttonletMeHack : '//button[text()="Let me hack!"]',
+        inputUsername: '//input[@id="username"]',
+        inputPassword : '//input[@id="password"]',
+        buttonLogin : '//button[@id="doLogin"]',
+        managementBar : '//a[@href="#"]',
+        inputRoomId : '//input[@id="roomName"]',
+        selectorType : '//select[@id="type"]',
+        selectorAccesible : '//select[@id="accessible"]',
+        inputRoomPrice : '//input[@id="roomPrice"]',
+        buttonCreateRoom : '//button[@id="createRoom"]',
 
-    constructor(page){
-        this.page = page;
-        this.letMeHack = page.locator('.btn-primary').first();
-        this.usernameInput = page.locator('#username');
-        this.passwordInput = page.locator('#password');
-        this.loginButton = page.locator('#doLogin');
-        this.managementBar = page.locator('.navbar-brand');
+        async openUrl(url) {
+            await page.goto(url);
+            await page.locator(this.buttonletMeHack).click();
+        },
 
-        this.roomId = page.locator('#roomName');
-        this.roomType = page.locator('select').first();
-        this.roomAccessible = page.locator('select').last();
-        this.roomPrice = page.locator('#roomPrice');
-        this.createRoomButton = page.locator('#createRoom');
-    }
-
-    async openUrl(url){
-        await this.page.goto(url);
-        await this.letMeHack.click();
-    }
+        async logIn(username, password){
+            await page.locator(this.inputUsername).fill(username);
+            await page.locator(this.inputPassword).fill(password);
+            await page.locator(this.buttonLogin).click();
+            await expect(page.locator(this.managementBar)).toBeVisible();
+        },
     
-    async logIn(username, password){
-        await this.usernameInput.fill(username);
-        await this.passwordInput.fill(password);
-        await this.loginButton.click();
-        await expect(this.managementBar).toBeVisible();
+        async createRoom(id,type,price){
+    
+            await page.locator(this.inputRoomId).fill(id);
+            await page.locator(this.selectorType).selectOption(type);
+            await page.locator(this.selectorAccesible).selectOption('true');
+            await page.locator(this.inputRoomPrice).fill(price)
+            await page.locator(this.buttonCreateRoom).click();
+        }
+
     }
 
-    async createRoom(id,type,price){
 
-        await this.roomId.fill(id);
-        await this.roomType.selectOption(type);
-        await this.roomAccessible.selectOption('true');
-        await this.roomPrice.fill(price)
-        await this.createRoomButton.click();
-    }
-}
+    

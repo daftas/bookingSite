@@ -10,16 +10,14 @@ describe('Create and book room' , async() => {
         {
             "password": credentials.password,
             "username": credentials.username
-
         },
         {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response.headers);
-        //envVariables.cookie = response.data.roomid
-        //fs.writeFileSync('./constants/envVariables.json', JSON.stringify(envVariables));  // Cant take token from response. After token is taken, write with fs to envVariables
+        envVariables.cookie = response.headers['set-cookie'][0].split(';')[0]
+        fs.writeFileSync('./constants/envVariables.json', JSON.stringify(envVariables));  
         expect(response.status).toBe(200);
     });
 
@@ -38,9 +36,7 @@ describe('Create and book room' , async() => {
                 headers: {
                 'Content-Type': 'application/json',
                 "cookie": envVariables.cookie
-
             }
-
         })
         envVariables.roomId = response.data.roomid
         fs.writeFileSync('./constants/envVariables.json', JSON.stringify(envVariables));
@@ -64,7 +60,6 @@ describe('Create and book room' , async() => {
                 'Content-Type': 'application/json',
                 "cookie": envVariables.cookie
             }
-
         });
         expect(response.status).toBe(201);
         expect(response.statusText).toBe('Created');
