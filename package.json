@@ -15,10 +15,8 @@
     "mocha": "^10.1.0"
   },
   "scripts": {
-    "booking": "npx playwright test tests/bookingSite.spec.js",
-    "booking02": "npx playwright test tests/bookingSite02.spec.js",
-    "bookingH": "npx playwright test tests/bookingSite.spec.js --headed",
-    "booking02H": "npx playwright test tests/bookingSite02.spec.js --headed",
+    "bookingSite": "npx playwright test tests/bookingSite.spec.js",
+    "bookingSiteH": "npx playwright test tests/bookingSite.spec.js --headed",
     "bookingAPI": "npx mocha tests/bookingSiteAPI.spec.js"
   },
   "keywords": [],

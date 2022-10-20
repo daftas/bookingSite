@@ -1,24 +1,27 @@
-const { expect } = require('@playwright/test');
 const {persons, messages} = require('../constants/index');
 
     module.exports = {
 
         buttonLetMeHack : '//button[text()="Let me hack!"]',
-        buttonBookThisRoom : '(//button[@type="button"][normalize-space()="Book this room"])[2]', 
+        buttonBookThisRoom : '(//button[@type="button"][normalize-space()="Book this room"])[last()]', 
+        buttonBook : '//button[normalize-space()="Book"]',
+        buttonSubmit : '#submitContact',
         inputFirstName : '[name="firstname"]',
         inputLastName : '[name="lastname"]',
         inputEmail : '[name="email"]',
         inputPhone : '[name="phone"]',
-        buttonBook : '//button[normalize-space()="Book"]',
-        selectorDateFrom : '//div[@class="rbc-day-bg rbc-today"]', 
-        selectorDateTo : '(//div[@class="rbc-date-cell"])[21]', // improve to be dynamic
         inputName : '#name',
         inputEmailToContact : '#email',
         inputPhoneToContact : '#phone',
         inputSubject : '#subject',
         inputDescription : '#description',
-        buttonSubmit : '#submitContact',
-        messageSuccess : '.col-sm-5 h2',
+        selectorDateTo : '(//div[@class="rbc-date-cell"])[28]',
+        selectorDateFrom : '(//div[@class="rbc-date-cell"])[22]', 
+        messageBookingSuccess : '//h3[text()="Booking Successful!"]',
+        messageContactSuccess : '(//h2)[2]',
+        messageError : '//div[@class="alert alert-danger"]',
+        mapOfHotel : '//div[@class="pigeon-overlays"]',
+        messageWelcome: '//div[@class="col-sm-10"]//p',
 
         async openUrl(url){
 
@@ -36,6 +39,12 @@ const {persons, messages} = require('../constants/index');
             await page.locator(this.inputPhone).fill(persons.phone);
             await page.locator(this.buttonBook).click();
         },
+
+        async bookCreatedRoomInvalid() {
+    
+            await page.locator(this.buttonBookThisRoom).click();
+            await page.locator(this.buttonBook).click();
+        },
     
         async contactHotel() {
     
@@ -45,7 +54,11 @@ const {persons, messages} = require('../constants/index');
             await page.locator(this.inputSubject).fill(messages.cancelReservation);
             await page.locator(this.inputDescription).fill(messages.cancelDescription);
             await page.locator(this.buttonSubmit).click();
-            const success = await page.locator(this.messageSuccess).textContent();
-            await expect(success).toContain(messages.successAfterContact);
-        }
+        },
+        async contactHotelInvalid() {
+    
+            await page.locator(this.buttonSubmit).click();
+        },
+        
+        
     }
