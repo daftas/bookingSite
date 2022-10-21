@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.27.1",
+    "jasmine": "^4.4.0",
     "mocha": "^10.1.0"
   },
   "scripts": {
